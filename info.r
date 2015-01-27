@@ -1,0 +1,5 @@
+name = "Yibing Chen"
+SID = "24435363"
+email = "chenyb@berkeley.edu"
+github_name = "Chenyb"
+status = "enrolled"
