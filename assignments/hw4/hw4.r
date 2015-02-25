@@ -14,9 +14,7 @@
 #   element of <data.list>
 
 listLengths <- function(data.list) {
-
-    # your code here
-
+  return (sapply(data.list, length))
 }
 
 #### Function 2
@@ -31,7 +29,10 @@ listLengths <- function(data.list) {
 #              the column names should be : "x", "x^2", "x^3" etc.
 
 powers <- function(x, k){
-
+  mat <- sapply(1:k, function(p) x ^ p)
+  colnames(mat)<- c("x", paste("x^", 2:k, sep = ""))
+    
+return (mat)
 }
 
  
@@ -44,7 +45,7 @@ powers <- function(x, k){
 # Output variable:
 # <recipe.metric> : A data frame with three columns where cups have been converted to ml and ounces to grams.
 #                   the number in "amount" should be updated, and the entry in "unit" changed
-#                   both ml and gr should be rounded to the nearest multiple of 5,
+#                   both ml and gr should be ,
 #                   e.g. a row that read : [2 cups flour] should now be [475 ml flour]
 #                   Note, if the "unit" is neither "cup"/"cups" nor "oz" the row should not be changed
 
@@ -62,9 +63,29 @@ powers <- function(x, k){
 # If the column names of the input data frame are not "amount", "unit" and "ingredient" the
 # function should stop and print out an error message
 
-# Put your code here
+# My test code
+# Test1
+# amount1 <- c(1, 2, 3)
+# unit1 <- c("cup","cups","oz")
+# ingredient1 <- c("water", "flour", "milk")
+# recipe1 <- data.frame(amount, unit, ingredient)
+# Test2
+# amount2 <- c(1, 2, 3)
+# unit2 <- c("cup","cups","gr")
+# ingredient2 <- c("water", "flour", "milk")
+# recipe2 <- data.frame(amount2, unit2, ingredient2)
 recipeConversion <- function(recipe){
-
+  if (any(colnames(recipe) != c("amount", "unit", "ingredient"))){
+    stop('The column names are not "amount", "unit", and "ingredient"')
+  }
+  
+  recipe$amount[unit == "cup" | unit == "cups"] = 5 * (round(recipe$amount[unit == "cup" | unit == "cups"]* 236.6/5))  
+  recipe$amount[unit == "oz"] = 5 * (round(recipe$amount[unit == "oz"]* 28.3/5))
+  
+  recipe$unit <- sub("cups?", "ml", recipe$unit)
+  recipe$unit <- sub("oz", "gr", recipe$unit)
+  
+  return(recipe)
 }
 
 
@@ -90,7 +111,15 @@ recipeConversion <- function(recipe){
 # -- The bootstrap variance is the sample variance of mu_1, mu_2, ..., mu_B
 
 bootstrapVarEst <- function(x, B){
-
+  i <- 0
+  means <- c()
+  while(i < B){
+    newsample <- sample(x, length(x), replace = TRUE)
+    mean_newsample <- mean(newsample)
+    means <- append(means, mean_newsample, after = length(means))
+    i <- i + 1
+  }
+  return (var(means))
 }
 
 #### Function #4b
@@ -111,7 +140,16 @@ bootstrapVarEst <- function(x, B){
 #     for this reduced sample calculate the sample mean (get mu_1, mu_2, ..., mu_n)
 # -- The jackknife variance is the sample variance of mu_1, mu_2, ..., mu_n
 
-jackknifeVarEst <- fuction(x){
+jackknifeVarEst <- function(x){
+  i <- 1
+  means <- c()
+  while(i <= length(x)){
+    newsample <- x[-i]
+    mean_newsample <- mean(newsample)
+    means <- append(means, mean_newsample, after = length(means))
+    i <- i + 1
+  }
+  return (var(means))
 
 }
 
@@ -127,7 +165,12 @@ jackknifeVarEst <- fuction(x){
 
 # Note: this function calls the previous two functions.
 
-samplingVarEst <- function(  ){
+samplingVarEst <- function(x, type = "bootstrap"){
+  if (type == "bootstrap"){
+    return (bootstrapVarEst(x, 5000))
+  } else if(type == "jackknife"){
+    return (jackknifeVarEst(x))
+  }
 
 }
 
