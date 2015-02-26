@@ -69,11 +69,7 @@ return (mat)
 # unit1 <- c("cup","cups","oz")
 # ingredient1 <- c("water", "flour", "milk")
 # recipe1 <- data.frame(amount, unit, ingredient)
-# Test2
-# amount2 <- c(1, 2, 3)
-# unit2 <- c("cup","cups","gr")
-# ingredient2 <- c("water", "flour", "milk")
-# recipe2 <- data.frame(amount2, unit2, ingredient2)
+
 recipeConversion <- function(recipe){
   if (any(colnames(recipe) != c("amount", "unit", "ingredient"))){
     stop('The column names are not "amount", "unit", and "ingredient"')
