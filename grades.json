@@ -1,0 +1,23 @@
+{
+    "login": "Chenyb", 
+    "url": "git@github.com:Chenyb/stat133.git", 
+    "name": "Yibing Chen", 
+    "email": "chenyb@berkeley.edu", 
+    "github_name": "Chenyb", 
+    "status": "enrolled", 
+    "grades": {
+        "hw1": {
+            "note": "", 
+            "hash": "256653b4fdae3bdd24b4afa8fb02d958e99a3c24", 
+            "earned": 20, 
+            "possible": 20, 
+            "penalty": 0, 
+            "parts": {
+                "hw1": {
+                    "possible": 20, 
+                    "earned": 20
+                }
+            }
+        }
+    }
+}
