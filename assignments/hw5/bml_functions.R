@@ -9,7 +9,6 @@
 
 bml.init <- function(r,c,p){
   m<-matrix(sample(c(0,1,2), r*c, prob = c(1-p, p/2, p/2), replace = T), nrow = r)
-  print(m)
   return (m)
 }
 
