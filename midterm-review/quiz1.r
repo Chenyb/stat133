@@ -2,15 +2,15 @@
 # It will be required to perform the following tasks. The dataset includes data 
 # for houses in the city of Alameda.
 
-
+load("SFHousing-1.rda")
 
 # calculate the mean and median price of houses in Alameda. Store these as the
 # variables <mean.price> and <med.price> respectively.
 
 # mean.price <- your code here
 # med.price <- your code here
-
-
+mean.price <- mean(housing$price)
+med.price <- median(housing$price)
 
 # For each house in the dataset, calculate the absolute difference between its
 # price and the mean price of houses in Alameda. Store this as the variable
@@ -18,7 +18,7 @@
 # the number of observations in the dataset
 
 # price.diffs <- your code here
-
+price.diffs <- sapply(housing$price, function(p) abs(mean.price - p))
 
 # The variable br indicates the number of bedrooms in each house. Please create
 # two new data frames that are subsets of the original data frame, according to

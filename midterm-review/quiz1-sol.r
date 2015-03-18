@@ -16,7 +16,7 @@ med.price <- median(housing$price)
 # For each house in the dataset, calculate the absolute difference between its
 # price and the mean price of houses in Alameda. Store this as the variable
 # <price.diffs>. Note that this should be a numeric vector with length equal to
-# the number of observations in the dataset
+# the number of observations in the dataset                                                                                                                                                                                                                                                                                                                                                      
 # price.diffs <- your code here
 price.diffs <- sapply(housing$price, function(p) abs(p - mean.price))
 
@@ -73,6 +73,9 @@ sqftByPrice <- function(price.cutoff, prices, lsqft) {
 # 1) a title "Housing price vs Building sqft"
 # 2) a red line with intercept=169500 and slope=275
 # 3) plotting character set to 20
+
+
 plot(housing$bsqft, housing$price, main="Housing price vs Building sqft",
      pch=20)
 abline(a=169500, b=275, col='red')
+
