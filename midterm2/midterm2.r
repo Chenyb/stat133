@@ -121,7 +121,7 @@ load("Cache500.rda")
 # Create [first.cache], a vector where each entry is the _first_ element of the
 # corresponding vector in the list Cache500
 
-first.cache <- vapply(Cache500)
+first.cache <- sapply(Cache500, function(x) x[1])
 
 
 # [3 pts]
