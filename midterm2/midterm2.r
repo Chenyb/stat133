@@ -108,6 +108,12 @@ plot(y = iris$Petal.Width, x = iris$Petal.Length, xlab = "Petal Length", ylab = 
 # [3 pt]
 # Make a scatterplot of ( sepal length / petal length) as a function of index (order)
 # Color the plotting symbol by Species (any 3 colors)
+color <- rep("False", nrow(iris))
+color[iris$Species == "setosa"] <- "red" 
+color[iris$Species == "versicolor"] <- "blue" 
+color[iris$Species == "virginica"] <- "black" 
+sepal.petal <- (iris$Sepal.Length) / (iris$Petal.Length)
+plot(y = sepal.petal, x = 1 :150, xlab = "index", ylab = "sepal length / petal length", col = color)
 
 
 ##  apply statements
