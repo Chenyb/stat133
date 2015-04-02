@@ -128,14 +128,14 @@ first.cache <- sapply(Cache500, function(x) x[1])
 # Create [mean.cache], a vector of length 500 where each entry is the mean 
 # of the corresponding element of the list Cache500
 
-#mean.cache <- <your code here>
+mean.cache <- sapply(Cache500, mean)
 
 
 # [2 pts]
 # Create [sd.cache], a vector of length 500 where each entry is the sd
 # of the corresponding element of the list Cache500
 
-#sd.cache <- <your code here>
+sd.cache <- sapply(Cache500, sd)
   
 
 
