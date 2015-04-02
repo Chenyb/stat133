@@ -113,7 +113,7 @@ color[iris$Species == "setosa"] <- "red"
 color[iris$Species == "versicolor"] <- "blue" 
 color[iris$Species == "virginica"] <- "black" 
 sepal.petal <- (iris$Sepal.Length) / (iris$Petal.Length)
-plot(y = sepal.petal, x = 1 :150, xlab = "index", ylab = "sepal length / petal length", col = color)
+plot(y = sepal.petal, x = 1 :150, xlab = "order", ylab = "sepal length / petal length", col = color)
 
 
 ##  apply statements
