@@ -99,7 +99,10 @@ boxplot( Sepal.Length ~ Species, iris)
 # The axes labels should be "Petal Length" and "Petal Width",
 # Color the plotting symbol by Species (any 3 colors)
 color <- rep("False", nrow(iris))
-color[iris$Species == "setosa"] <- red 
+color[iris$Species == "setosa"] <- "red" 
+color[iris$Species == "versicolor"] <- "blue" 
+color[iris$Species == "virginica"] <- "black" 
+plot(y = iris$Petal.Width, x = iris$Petal.Length, xlab = "Petal Length", ylab = "Petal Width", col = color)
 
 
 # [3 pt]
