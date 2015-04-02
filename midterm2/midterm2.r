@@ -71,7 +71,7 @@ f2 <- subset(family, gender == "m"& height >= 72)
   
 # [1 pt]
 # Create [f3] a subset of family of people whose name starts with T
-f3 <- subset(family, grep(name, "T") == 0, )
+f3 <- subset(family, substr(family$name, 1, 1) == "T" )
   
 
 
