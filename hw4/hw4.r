@@ -69,13 +69,13 @@ return (mat)
 # unit1 <- c("cup","cups","oz")
 # ingredient1 <- c("water", "flour", "milk")
 # recipe1 <- data.frame(amount, unit, ingredient)
-
+# Unit is not defined as a global variable
 recipeConversion <- function(recipe){
   if (any(colnames(recipe) != c("amount", "unit", "ingredient"))){
     stop('The column names are not "amount", "unit", and "ingredient"')
   }
   
-  recipe$amount[unit == "cup" | unit == "cups"] = 5 * (round(recipe$amount[unit == "cup" | unit == "cups"]* 236.6/5))  
+  recipe$amount[unit == "cup" | unit == "cups"] = 5 * (round(recipe$amount[unit == "cup" | unit == "cups"]* 236.6/5))
   recipe$amount[unit == "oz"] = 5 * (round(recipe$amount[unit == "oz"]* 28.3/5))
   
   recipe$unit <- sub("cups?", "ml", recipe$unit)
@@ -106,16 +106,17 @@ recipeConversion <- function(recipe){
 # -- Calculate, and store, the mean of this bootstrap sample, call that mu_i (i in 1:B)
 # -- The bootstrap variance is the sample variance of mu_1, mu_2, ..., mu_B
 
+# You have infinite loop in this function!!!!!!! --Andy
 bootstrapVarEst <- function(x, B){
-  i <- 0
-  means <- c()
-  while(i < B){
-    newsample <- sample(x, length(x), replace = TRUE)
-    mean_newsample <- mean(newsample)
-    means <- append(means, mean_newsample, after = length(means))
-    i <- i + 1
-  }
-  return (var(means))
+    # i <- 0
+    # means <- c()
+    #  while(i < B){
+    #   newsample <- sample(x, length(x), replace = TRUE)
+    #   mean_newsample <- mean(newsample)
+    #    means <- append(means, mean_newsample, after = length(means))
+    #    i <- i + 1
+    #  }
+    #  return (var(means))
 }
 
 #### Function #4b
