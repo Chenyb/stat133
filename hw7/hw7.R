@@ -219,7 +219,7 @@ names(emptyVec) = uniqueWords
 
 
 
-wordMat = matrix(unlist(wordVecs), ncol=length(wordVecs), byrow=FALSE)
+
 # You may want to use an apply statment to first create a list of word vectors, one for each speech.
 # Think about what you want to do for each element, maybe put that in a little function and call in an lapply statement
  wordVecs <- lapply(speechWords, function(x){
@@ -230,8 +230,7 @@ wordMat = matrix(unlist(wordVecs), ncol=length(wordVecs), byrow=FALSE)
  })
 
 # Create a matrix out of wordVecs:
- wordMat <- matrix(unlist(wordVecs), ncol=length(wordVecs), byrow=FALSE)
-
+ wordMat <- matrix(unlist(wordVecs), nrow=length(uniqueWords), byrow=FALSE)
 # Load the dataframe [speechesDF] which has two variables,
 # president and party affiliation (make sure to keep this line in your code):
 
@@ -250,7 +249,8 @@ chars <- sapply(speechWords, function(x) sum(nchar(x)))
 sentences <- sapply(speechesL, length)
 
 # Update the data frame
-speechesDF <- data.frame(speechesDF, year=speechYr, month=speechMo, sentences, words, chars)
+speechesDF <- data.frame(speechesDF, yr=speechYr, month=speechMo, words=words, chars=chars, sent=sentences)
+
 
 
 ######################################################################
@@ -260,22 +260,16 @@ speechesDF <- data.frame(speechesDF, year=speechYr, month=speechMo, sentences, w
 
 # note that your code will be a few lines...
   
-  pre <- speechesDF$Pres
-  presidentWordMat <- mat.or.vec(length(uniqueWords),length(levels(pre)))
-  current = 0
-  colnum = 0
-  colnames = NULL;
-  for (i in 1:length(pre)) {
-    if (pre[i] == current) {
-      presidentWordMat[,colnum] = presidentWordMat[,colnum] + wordMat[,i]
-    } else {
-      colnum = colnum + 1
-      presidentWordMat[,colnum] = presidentWordMat[,colnum] + wordMat[,i]
-      current = pre[i]
-      colnames = c(colnames, as.character(pre[i]))
-    }
+uniquePresidents <- unique(presidents)
+presidentWordMat <- matrix(NA, nrow=no.uniqueWords, ncol=length(uniquePresidents))
+for (i in 1:length(uniquePresidents)) {
+  if (sum(presidents==uniquePresidents[i]) == 1) {
+    presidentWordMat[,i] <- wordMat[,presidents==uniquePresidents[i]]
+  } else {
+    presidentWordMat[,i] <- rowSums(wordMat[,presidents==uniquePresidents[i]])
   }
-  colnames(presidentWordMat) <- colnames
+}
+
   
 # At the beginning of this file we sourced in a file "computeSJDistance.R"
 # It has the following function:
@@ -329,8 +323,8 @@ speechesDF <- data.frame(speechesDF, year=speechYr, month=speechMo, sentences, w
 # col = cols[presParty[rownames(presDist)]]
   
 plot(mds, type = "n", xlab = "", ylab = "", main="Presidents")
-text(mds, rownames(presDist), col = cols[presParty[rownames(presDist)]])
-legend(0.055, -0.01, legend = levels(speechesDF$party), fill = cols)
+text(mds, uniquePresidents, col=cols[presParty[uniquePresidents]])
+
 
 ### Use hierarchical clustering to produce a visualization of  the results.
 # Compare the two plots.
@@ -346,11 +340,12 @@ plot(hc)
 # x-axis: speech year, y-axis: average sentence length (word/sent)
 
 # your plot statements below:
-plot(speechesDF$year, speechesDF$sent, xlab="Year", ylab="#sentences")
-plot(speechesDF$year, speechesDF$word, xlab="Year", ylab="#words")
-plot(speechesDF$year, speechesDF$char, xlab="Year", ylab="#characters")
-plot(speechesDF$year, speechesDF$char/speechesDF$word, xlab="Year", ylab="ave word length")
-plot(speechesDF$year, speechesDF$word/speechesDF$sent, xlab="Year", ylab="ave sentence length")
+plot(speechesDF$yr, speechesDF$sent, xlab="Speech year", ylab="# of sentences")
+plot(speechesDF$yr, speechesDF$word, xlab="Speech year", ylab="# of words")
+plot(speechesDF$yr, speechesDF$char, xlab="Speech year", ylab="# of characters")
+plot(speechesDF$yr, speechesDF$char/speechesDF$word, xlab="Speech year", ylab="average word length")
+plot(speechesDF$yr, speechesDF$word/speechesDF$sent, xlab="Speech year", ylab="average sentence length")
+
 
 
 
