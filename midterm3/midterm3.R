@@ -9,7 +9,10 @@
 #   <num.brac>: an integer indicating how many elements of <chvec> contain the "["
 #     symbol. For example: numBracElements(c('digit', '[:digit:]', '[]')) should return 2
 
-
+numBracElements <- function(chvec) {
+  num.brac <- length(grep('\\[', chvec))
+  return(num.brac)
+}
 
 
 # Write a function called maxDigits that return the maximum of all (single) digits in
@@ -20,6 +23,15 @@
 # and return the following
 #   <total>: A single number (the maximum of all digits in chvec)
 
+maxDigits <- function(chvec) {
+  matches <- gregexpr('\\d', chvec)[[1]]
+  if (matches[1] == -1) {
+    total <- 0
+  } else {
+    total <- max(as.numeric(strsplit(chvec, "")[[1]][matches]))
+  }
+  return(total)
+}
 
 
 # Some test cases:
@@ -30,7 +42,7 @@ all.equal(maxDigits("abcdefg"), 0)
 
 # Write a function called hisToHer that converts every instance of 
 # him in a string to her; every instance of he to she and every instance 
-# of his to hers. You can assume everything is lower case. Be careful not 
+# of his to her. You can assume everything is lower case. Be careful not 
 # to replace words that contain him/he/his (eg you don't want to
 # replace the with ther). Your function should take the argument
 #   <chvec>: A character vector
@@ -39,6 +51,12 @@ all.equal(maxDigits("abcdefg"), 0)
 #   <herchvec>: The same character vector with the required substitutions.
 
 
+hisToHer <- function(chvec) {
+  herchvec <- gsub('\\<him\\>', 'her', chvec)
+  herchvec <- gsub('\\<he\\>', 'she', herchvec)
+  herchvec <- gsub('\\<his\\>', 'her', herchvec)
+  return(herchvec)
+}
 # A test case
 all.equal(
   hisToHer("he went to the store his mother gave him"), 
@@ -59,3 +77,20 @@ all.equal(
 # For example mostCommonLetter("aabbccccdddd") should return 
 # [1] "c" "d"
 
+
+mostCommonLetter <- function(chvec) {
+  chvec <- gsub('[^[:alpha:]]', '', chvec)
+  chvec <- tolower(chvec)
+  letter <- c()
+  max <- 1
+  for (ch in letters) {
+    matches <- gregexpr(ch, chvec)[[1]]
+    if (length(matches) > max) {
+      letter <- ch
+      max <- length(matches)
+    } else if (matches[1] != -1 && length(matches) == max) {
+      letter <- c(letter, ch)
+    }
+  }
+  return(letter)
+}
