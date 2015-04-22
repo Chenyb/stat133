@@ -1,3 +1,5 @@
+install.packages('scales')
+library('scales')
 xUnique = 1:5
 trueCoeff = c(0, 1, 1)
 
@@ -37,7 +39,7 @@ fitModel = function(x, y, degree = 1){
   ### HINT: Take a look at the repBoot function to see how to use lm()
   df <- data.frame(x=x, y=y)
   if (degree == 1) {
-    model = lm(y ~ x - 1, df)
+    model = lm(y ~ x, df)
   } else if (degree == 2) {
     model = lm(y ~ x + I(x^2), df)
   } else {
@@ -51,7 +53,7 @@ oneBoot = function(data, fit = NULL, degree = 1){
   ###  data are either your data (from call to getData)
   ###  OR fit and errors from fit of line to data
   ###  OR fit and errors from fit of quadratic to data  
-  if (fit == Null){
+  if (is.null(fit)){
     data[,2] <- genBootY(data[,1], data[,2])
   } else {
     data[,2] <- genBootR(fit[,1], fit[,2])
