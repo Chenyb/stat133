@@ -75,8 +75,8 @@ recipeConversion <- function(recipe){
     stop('The column names are not "amount", "unit", and "ingredient"')
   }
   
-  recipe$amount[unit == "cup" | unit == "cups"] = 5 * (round(recipe$amount[unit == "cup" | unit == "cups"]* 236.6/5))
-  recipe$amount[unit == "oz"] = 5 * (round(recipe$amount[unit == "oz"]* 28.3/5))
+  recipe$amount[recipe$unit == "cup" | recipe$unit == "cups"] = 5 * (round(recipe$amount[recipe$unit == "cup" | unit == "cups"]* 236.6/5))
+  recipe$amount[recipe$unit == "oz"] = 5 * (round(recipe$amount[recipe$unit == "oz"]* 28.3/5))
   
   recipe$unit <- sub("cups?", "ml", recipe$unit)
   recipe$unit <- sub("oz", "gr", recipe$unit)
