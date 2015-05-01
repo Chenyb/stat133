@@ -108,15 +108,15 @@ recipeConversion <- function(recipe){
 
 # You have infinite loop in this function!!!!!!! --Andy
 bootstrapVarEst <- function(x, B){
-    # i <- 0
-    # means <- c()
-    #  while(i < B){
-    #   newsample <- sample(x, length(x), replace = TRUE)
-    #   mean_newsample <- mean(newsample)
-    #    means <- append(means, mean_newsample, after = length(means))
-    #    i <- i + 1
-    #  }
-    #  return (var(means))
+     i <- 0
+     means <- c()
+      while(i < B){
+       newsample <- sample(x, length(x), replace = TRUE)
+       mean_newsample <- mean(newsample)
+        means <- append(means, mean_newsample, after = length(means))
+        i <- i + 1
+      }
+      return (var(means))
 }
 
 #### Function #4b
@@ -162,7 +162,7 @@ jackknifeVarEst <- function(x){
 
 # Note: this function calls the previous two functions.
 
-samplingVarEst <- function(x, b = 1000, type = "bootstrap"){
+samplingVarEst <- function(x, type = "bootstrap", b = 1000){
   if (type == "bootstrap"){
     return (bootstrapVarEst(x, b))
   } else if(type == "jackknife"){
