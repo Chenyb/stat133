@@ -1,0 +1,24 @@
+Total: 18/20
+
+Is n.speeches correct? 2/2
+Are presidents and tempDates correct? 2/2
+Are speechYr and speechMo correct? 2/2
+
+Is speechToWords reasonable? 2/2
+Are wordVecs and wordMat reasonable? 0/2
+##!! wordVecs are wordMat are not correct. They do not have the 
+##!! counts for the same word in the same row.
+##!! The immediate cause of the problem is on line 218.
+##!! You should have
+##!! names(emptyVec) <- names(uniqueWords)
+##!! However this code was provided to you;
+##!! The real issue is on line 189.
+##!! You should have uniqueWords <- unique(unlist(speechWords))
+##!! rather than uniqueWords <- table(unlist(speechWords))
+Is presidentWordMat reasonable? 2/2
+
+Plots
+Are the multi-dimensional scaling plots correct? 2/2
+Is the hierarchical clustering plot appropriate? 1/1
+Are the five plots showing speech year and sentences/words/characters/word length/sentence length well done? 5/5
+
