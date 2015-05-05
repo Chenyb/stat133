@@ -75,8 +75,8 @@ recipeConversion <- function(recipe){
     stop('The column names are not "amount", "unit", and "ingredient"')
   }
   
-  recipe$amount[unit == "cup" | unit == "cups"] = 5 * (round(recipe$amount[unit == "cup" | unit == "cups"]* 236.6/5))
-  recipe$amount[unit == "oz"] = 5 * (round(recipe$amount[unit == "oz"]* 28.3/5))
+  recipe$amount[recipe$unit == "cup" | recipe$unit == "cups"] = 5 * (round(recipe$amount[recipe$unit == "cup" | unit == "cups"]* 236.6/5))
+  recipe$amount[recipe$unit == "oz"] = 5 * (round(recipe$amount[recipe$unit == "oz"]* 28.3/5))
   
   recipe$unit <- sub("cups?", "ml", recipe$unit)
   recipe$unit <- sub("oz", "gr", recipe$unit)
@@ -108,15 +108,15 @@ recipeConversion <- function(recipe){
 
 # You have infinite loop in this function!!!!!!! --Andy
 bootstrapVarEst <- function(x, B){
-    # i <- 0
-    # means <- c()
-    #  while(i < B){
-    #   newsample <- sample(x, length(x), replace = TRUE)
-    #   mean_newsample <- mean(newsample)
-    #    means <- append(means, mean_newsample, after = length(means))
-    #    i <- i + 1
-    #  }
-    #  return (var(means))
+     i <- 0
+     means <- c()
+      while(i < B){
+       newsample <- sample(x, length(x), replace = TRUE)
+       mean_newsample <- mean(newsample)
+        means <- append(means, mean_newsample, after = length(means))
+        i <- i + 1
+      }
+      return (var(means))
 }
 
 #### Function #4b
@@ -162,7 +162,7 @@ jackknifeVarEst <- function(x){
 
 # Note: this function calls the previous two functions.
 
-samplingVarEst <- function(x, b = 1000, type = "bootstrap"){
+samplingVarEst <- function(x, type = "bootstrap", b = 1000){
   if (type == "bootstrap"){
     return (bootstrapVarEst(x, b))
   } else if(type == "jackknife"){
