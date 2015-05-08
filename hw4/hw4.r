@@ -75,8 +75,8 @@ recipeConversion <- function(recipe){
     stop('The column names are not "amount", "unit", and "ingredient"')
   }
   
-  recipe$amount[unit == "cup" | unit == "cups"] = 5 * (round(recipe$amount[unit == "cup" | unit == "cups"]* 236.6/5))
-  recipe$amount[unit == "oz"] = 5 * (round(recipe$amount[unit == "oz"]* 28.3/5))
+  recipe$amount[recipe$unit == "cup" | recipe$unit == "cups"] = 5 * (round(recipe$amount[recipe$unit == "cup" | unit == "cups"]* 236.6/5))
+  recipe$amount[recipe$unit == "oz"] = 5 * (round(recipe$amount[recipe$unit == "oz"]* 28.3/5))
   
   recipe$unit <- sub("cups?", "ml", recipe$unit)
   recipe$unit <- sub("oz", "gr", recipe$unit)
@@ -121,12 +121,24 @@ bootstrapVarEst1 <- function(x, B){
 }
 
 bootstrapVarEst <- function(x, B){
+<<<<<<< HEAD
     x.bar.boot <- NULL
     n <- length(x)
     for(i in 1:B){
         x.bar.boot[i] <- mean(sample(x, n, replace=TRUE))
     }
     return(boot.sigma2.est=var(x.bar.boot))
+=======
+     i <- 0
+     means <- c()
+      while(i < B){
+       newsample <- sample(x, length(x), replace = TRUE)
+       mean_newsample <- mean(newsample)
+        means <- append(means, mean_newsample, after = length(means))
+        i <- i + 1
+      }
+      return (var(means))
+>>>>>>> b1cb2e06feb053688796c0ffdc2cb5eec33e144b
 }
 
 #### Function #4b
@@ -172,7 +184,11 @@ jackknifeVarEst <- function(x){
 
 # Note: this function calls the previous two functions.
 
+<<<<<<< HEAD
 samplingVarEst <- function(x, type = "bootstrap",b = 1000){
+=======
+samplingVarEst <- function(x, type = "bootstrap", b = 1000){
+>>>>>>> b1cb2e06feb053688796c0ffdc2cb5eec33e144b
   if (type == "bootstrap"){
     return (bootstrapVarEst(x, b))
   } else if(type == "jackknife"){
