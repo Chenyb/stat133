@@ -107,16 +107,26 @@ recipeConversion <- function(recipe){
 # -- The bootstrap variance is the sample variance of mu_1, mu_2, ..., mu_B
 
 # You have infinite loop in this function!!!!!!! --Andy
+# Your code works. I am sorry, I dont know what's wrong with the autograder.
+bootstrapVarEst1 <- function(x, B){
+     i <- 0
+     means <- c()
+      while(i < B){
+       newsample <- sample(x, length(x), replace = TRUE)
+       mean_newsample <- mean(newsample)
+        means <- append(means, mean_newsample, after = length(means))
+        i <- i + 1
+      }
+      return (var(means))
+}
+
 bootstrapVarEst <- function(x, B){
-    # i <- 0
-    # means <- c()
-    #  while(i < B){
-    #   newsample <- sample(x, length(x), replace = TRUE)
-    #   mean_newsample <- mean(newsample)
-    #    means <- append(means, mean_newsample, after = length(means))
-    #    i <- i + 1
-    #  }
-    #  return (var(means))
+    x.bar.boot <- NULL
+    n <- length(x)
+    for(i in 1:B){
+        x.bar.boot[i] <- mean(sample(x, n, replace=TRUE))
+    }
+    return(boot.sigma2.est=var(x.bar.boot))
 }
 
 #### Function #4b
@@ -162,7 +172,7 @@ jackknifeVarEst <- function(x){
 
 # Note: this function calls the previous two functions.
 
-samplingVarEst <- function(x, b = 1000, type = "bootstrap"){
+samplingVarEst <- function(x, type = "bootstrap",b = 1000){
   if (type == "bootstrap"){
     return (bootstrapVarEst(x, b))
   } else if(type == "jackknife"){
