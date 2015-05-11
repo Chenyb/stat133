@@ -10,9 +10,9 @@
 #################################################################
 # IMPORTANT
 # Enter your personal information here, between the quotation marks:
-name <- ""
-github.name <- ""
-email.address <- ""
+name <- "Yibing Chen"
+github.name <- "Chenyb"
+email.address <- "chenyb@berkeley.edu"
 
 #################################################################
 # The exam has a total of 100 points and for each task 
@@ -54,13 +54,14 @@ email.address <- ""
 # [1 pt]
 # Create [x], a numeric vector of length 1000 with 
 # entries: 5, 10, 15, etc.
-x <- <your code here>
+x <- seq(from= 5, to = 5000, by = 5)
   
 # [1 pt]
 # Create [y], a logical vector of length 1000 
 # with y[i]=T if x[i] is divisible by 10, otherwise F
 
-  y <- <your code here>
+  y<- ifelse(x%%10, F, T)
+
   
   
 # [1 pt]
@@ -68,21 +69,19 @@ x <- <your code here>
 # that are drawn from a standard normal distribution (hint: rnorm)
 # *and* stored in increasing order
 set.seed(42)
-z <- <your code here>
-  
+z <- sort(rnorm(111))
   
 # [1 pt]
 # Create [v], a numeric vector with :
 # a random permutation of the even numbers from 2 to 222
-  set.seed(31415)
-v <- <your code here>
-
+set.seed(31415)
+v <- sample(2*(1:111))
   
 # [1 pt]
 # Create [w], a random permutation of the numeric values of a deck of cards
 # (i.e. just the numbers 1 through 13 each repeated 4 times)
 set.seed(2718)
-w <- <your code here>
+w <- sample(rep(1:13, each = 4))
 
   
 # [1 pt]
@@ -90,14 +89,16 @@ w <- <your code here>
 # Exponential random variables (hint: rexp) with rate 3
 # (arrange the values by column, as per default)
 set.seed(344)
-m <- <your code here>
+m <- matrix(rexp(100, 3), ncol = 10)
 
   
 # [1 pt]
 # Create [l], a list with 12 elements, each a vector of length 100.
 # Each vector of length 100 of Poisson (hint:rpois) random variables with mean 5
   set.seed(71)
-<your code here>
+l <- list()
+for (i in 12)
+  l[[i]]<- rpois(100, 5)
 
 
 # For the next few tasks you will use the data frame family (size 14x5)
@@ -106,22 +107,23 @@ load("family.rda")
 
 # [1 pt]
 # Create [f1] a subset of family with only women age 50 or over
-f1 <- <your code here>
+f1 <- subset(family, family$gender == 'f'& family$age >= 50)
+
 
   
 # [1 pt]
 # Create [f2] a subset of family with only men 6 foot tall or more
-f2 <- <your code here>
+f2 <- subset(family, family$gender == 'm'& family$height >= 72)
 
   
 # [1 pt]
 # Create [f3] a subset of family of people whose name starts with T
-f3 <- <your code here>
+f3 <- subset(family, substr(family$name, 1, 1) == "T")
   
 
 # [1 pt]
 # Create [f4] a subset of family with just the youngest individual (so just one row)
-f4 <- <your code here>
+f4 <- subset(family, family$age == min(family$age))
 
 
 # for the next two tasks you will use the data frame infants (size 1236x15)
@@ -130,12 +132,12 @@ load("KaiserBabies.rda")
 
 # [2 pt]
 # Create a table [t] of the education level ($ed) of all married ($marital) first time ($parity=1) mothers:
-t <- <your code here>
+t <- table(infants$ed[infants$marital == 'Married' & infants$parity ==1])
 
 
 # [2 pt]
 # Calculate [mw], the average birthweight ($bwt) of all babies whose were full term, i.e. gestation equal or more than 259 days.
-mw <- <your code here>
+mw <- mean(na.omit(infants$bwt[infants$gestation >= 259]))
   
   
 #################################################################
@@ -149,19 +151,19 @@ mw <- <your code here>
 
 # [2 pts]
 # Make a box plot of Sepal Length by Species (so 3 boxplots in one plot)
-
+boxplot(iris$Sepal.Length ~ iris$Species)
 
 
 # [3 pts]
 # Make a scatterplot of petal width (y-axis) versus petal length (x-axis)
 # The axes labels should be "Petal Length" and "Petal Width",
 # Color the plotting symbol by Species (any 3 colors)
-
+plot(y = iris$Petal.Width, x = iris$Petal.Length, xlab = "Petal Length", ylab = "Petal Width", col = (iris$Species))
 
 # [3 pt]
 # Make a scatterplot of ( sepal length / petal length) as a function of index (order)
 # Color the plotting symbol by Species (any 3 colors)
-
+plot(iris$Sepal.Length / iris$Petal.Length, col = (iris$Species))
 
 ##### We will now use the infant birth data again (data frame infants)
 
@@ -170,13 +172,14 @@ mw <- <your code here>
 # The plotting symbol should be a red star (*)
 # Put on custom made x-axis and y-axis labels that fully describe the variables
 # Add a vertical line at gestation=259 (full length pregnancy)
-
-
+plot(infants$bwt~infants$gestation, pch = "*", xlab = "infant birthweight in ounces", ylab = "gestation time in days", col = "red")
+abline(v = 259)
 # [6 pts]
 # Make a histogram of mother's age (age) and superimpose on it a _blue_ density plot (same variable)
 # Note that the y-axis of the histogram and the density have to be the same...
 # Add x-axis labels
-
+hist(infants$age, prob=T, xlab="Mother's age")
+lines(density(infants$age, na.rm=T), col="blue")
 
 #################################################################
 ##### PART III : apply and by statements [15 pts]
@@ -190,19 +193,20 @@ load("Cache500.rda")
 # Create [first.cache], a vector where each entry is the _first_ element of the
 # corresponding vector in the list Cache500
 
-first.cache <- <your code here>
+first.cache <- sapply(Cache500, "[",1)
+
 
 # [3 pts]
 # Create [mean.cache], a vector of length 500 where each entry is the mean 
 # of the corresponding element of the list Cache500
 
-mean.cache <- <your code here>
+mean.cache <- sapply(Cache500, mean)
 
 # [2 pts]
 # Create [sd.cache], a vector of length 500 where each entry is the sd
 # of the corresponding element of the list Cache500
 
-sd.cache <- <your code here>
+sd.cache <- sapply(Cache500, sd)
 
 # [4 pts]
 # Create [mean.long.cache], a vector where 
@@ -210,15 +214,14 @@ sd.cache <- <your code here>
 # the mean of Cache500[[i]] IF it has 50 or more entries.
 # NA IF Cache500[[i]] has less than 50 entries.
 
-mean.long.cache <- <your code here>
+mean.long.cache <- sapply(Cache500, function(x){if(length(x) >= 50) return (mean(x)) else (return (NA))})
 
 # Consider again the iris dataset
 # [3 pts]
 # Create a variable [max.petal.width] _a numeric vector of length 3_
 # that has the maximum petal length for each iris species.
 
-max.petal.width <- <your code here>
-
+max.petal.width <- as.vector(by(iris$Petal.Width,iris$Species, max))
 #################################################################
 ##### PART IV : functions [20 pts]
 
@@ -242,8 +245,15 @@ max.petal.width <- <your code here>
 # 1    5    3    8
 # 2    5    7    9
 
-firstColToNames <- function(  ){
-  <your code here>
+firstColToNames <- function(m){
+  if(length(dim(m))!= 2) {
+    return("the imput is not a matrix or dataframe.")
+  } else {
+    names <- as.character(m[,1])
+    m <- m[,-1]
+    rownames(m) <- names
+    return (m)
+  }
   
 }
 
@@ -257,7 +267,14 @@ firstColToNames <- function(  ){
 # The function should ignore NA values (i.e. if a matrix has an entry that is NA)
 
 longerRange <- function(m1, m2){
-  <your code here>  
+  range1 <- max(m1, na.rm = T) - min(m1, na.rm = T)
+  range2 <- max(m2, na.rm = T) - min(m2, na.rm = T)
+  if ( range1 >= range2){
+    return (1)
+  }
+  else{
+    return (2)
+  }
 }
 
 # [8 pts]
@@ -275,7 +292,13 @@ longerRange <- function(m1, m2){
 # so e.g. 30 F=-1.11 C and 30 C = 86 F
 
 TempConv <- function(t, scale){
-  <your code here>
+  if (scale == "F"){
+    return ((t-32)*5/9)
+  }
+  else if (scale == "C"){
+    return (t * 9/5 +32)
+  }
+  else return ("input of scale is neither F nor C")
   
 }
 
@@ -299,7 +322,8 @@ set.seed(123456)
 # and so on.
 
 dice_sum <- function(k, B){
-
+  dsum <- replicate(B, sum(sample(1:6,k,replace=T)))
+  return (dsum)
 }
 
 # [5 pts]
@@ -333,11 +357,16 @@ dice_sum <- function(k, B){
 par(mfrow=c(2,2))
 #----------------------
 
-ave.diceRoll <- <initialize>
-sd.diceRoll <- <initialize>
+ave.diceRoll <- c(0,0,0,0)
+sd.diceRoll <- c(0,0,0,0)
 Bvec <- c(20, 100, 1000, 5000)
 
-<your code here to run simulation>
+for (i in 1:4){
+  temp <- dice_sum(2, Bvec[i])
+  ave.diceRoll[i] = mean(dice_sum(2, Bvec[i]))
+  sd.diceRoll[i] = sd(dice_sum(2, Bvec[i]))
+  hist(temp,xlab = "sum of dice roll", main = paste("Histogram for B =", i))
+}
 
 # STOP: did you remember to put in the title and axis label on the histograms?
 
@@ -349,31 +378,31 @@ phrases <- c("coat", "cat", "ct", "mat", "Sat!", "Now?", "match", "How much? $10
 # [2 pts]
 # Create a vector [text1] that lists the elements in phrases that have 
 # a match to "at", anywhere 
-text1 <- <your code here>
+text1 <- phrases[grep("at", phrases)]
 
 # [2 pts]
 # Create a vector [text2] that lists the elements in phrases that have 
 # a match to "at", _at the end of the phrase_ 
-text2 <- <your code here>
+text2 <-phrases[grep("at$", phrases)]
 
 # [4 pts]
 # Create a vector [text3] that lists the elements in phrases that have 
 # a match to any multiple of "at", _two or more times_ (atat" or "atatat" etc.)
 # and anything before or after that match
-text3 <- <your code here>
+text3 <- phrases[grep("(at){2,}", phrases)]
 
 # [3 pts]
 # Create a vector [tests] that is of length 200 and has the entries
 # "test1", "test2", ..., "test200"
 
-tests <- <your code here>
+tests <- paste("test",1:200, sep = "")
 
 # [3 pts]
 # Take the vector [tests] from above and create a character string
 # [tests.all] (so a vector of length 1)
 # that stores the entries of [tests] as one long string
 # i.e. tests.all should be "test1 test2 test3 ... test200"
-tests.all <- <your code here>
+tests.all <- paste(tests, collapse = " ")
 
 # [6 pts]
 # Start with [minchin] which is a character string, create 
@@ -384,7 +413,7 @@ tests.all <- <your code here>
 
 minchin <- "And try as hard as I like, A small crack appears In my diplomacy-dike. By definition, I begin, Alternative Medicine, I continue Has either not been proved to work, Or been proved not to work. You know what they call alternative medicine That's been proved to work? Medicine."
 
-minchin.split <- <your code here>
+minchin.split <- tolower(unlist(strsplit(minchin, " ")))
   
   
 #################################################################
