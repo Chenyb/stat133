@@ -73,7 +73,7 @@ for (i in 1 : 10) {
 #  a probability 0.3 of being TRUE and 0.7 of being FALSE
 # Hint: you can e.g. use [sample()], you will need to set all 4 arguments
 set.seed(42)
-z- sample(x =c(TRUE, FALSE), size = 5000, replace= TRUE, prob = c(0.3, 0.7))
+z <- sample(x =c(TRUE, FALSE), size = 5000, replace= TRUE, prob = c(0.3, 0.7))
 
   
 # [1 pt]
@@ -204,12 +204,13 @@ plot(WorldBank$life.expectancy~WorldBank$fertility.rate, pch = '.', col = as.num
 abline(v = 2.1)
 
 
-!!!!!!!!!!!!!!!!# [4 pts]
+# [4 pts]
 # Do you see patterns in the plot?  You just plotted these variables for all years between 1960 and 2014.
 # Please redo the plot, but this time put two plots side by side (hint: before plotting set par(mfrow=...) )
 # The left plot should include only data from 1960, the right one only from 2014.
-  par(mfrow = c(1960, 2014))
-plot(WorldBank$life.expectancy~WorldBank$fertility.rate, pch = '.', col = as.numeric(WorldBank$region),par = (mfrow = WorldBank$years))
+#  par(mfrow = c(1960, 2014))
+par(mfrow=c(1,2))
+  plot(WorldBank$life.expectancy~WorldBank$fertility.rate, pch = '.', col = as.numeric(WorldBank$region),par = (mfrow = WorldBank$years))
 abline(v = 2.1)
 
 # [4 pts]
@@ -239,15 +240,18 @@ max.rain <- sapply(rain, max)
 # __maximum absolute difference__ in rainfall on two consecutive days
 # Hint: you can use the function [diff()] to get the difference between entry i and i+1 in a vector 
 # and the function [abs()] for absolute value
-func <- function(l){
-  newl <- list()
-  n <- length(l)
-  for (i in 1 : (n-1)){
-    newl[[i]] <- abs(diff(l[[i]], l[[i+1]])) 
-  }
-  return (max(newl))
-}
- max.diff.rain <- sapply(rain, func)
+
+## IBH: commenting out bc/ the function causes an error message.
+#func <- function(l){
+#  newl <- list()
+#  n <- length(l)
+#  for (i in 1 : (n-1)){
+#    newl[[i]] <- abs(diff(l[[i]], l[[i+1]])) 
+#  }
+#  return (max(newl))
+#}
+
+# max.diff.rain <- sapply(rain, func)
 
 
 # [5 pts]
@@ -350,7 +354,7 @@ GenNorm <- function(mean, sd, n, plot.hist = TRUE){
 
 PermDiff <- function(cases, controls, k=5000){
   Diff = c()
-  n = lenth(cases)
+  n = length(cases)
   m = length(controls)
   newsample <- c(cases, controls)
   total <- sum(newsample)
