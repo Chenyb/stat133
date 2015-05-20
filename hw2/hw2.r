@@ -70,8 +70,8 @@ n.wr <- nrow(wr1500m)
 # Let's look at the relationship between date and time.
 # Q1c. What type of variable (numeric (continuous or discrete), nominal ordinal)
 # are year and times? (no need to save the output, just look at it)
-typeof(wr1500m$times)
-discrete;
+#typeof(wr1500m$times)
+#discrete;
 
 # When we are examining a variable to see how it changes in time,
 # we typically make a line plot, with time on the x-axes and 
