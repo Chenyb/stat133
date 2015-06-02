@@ -436,7 +436,8 @@ return (n.jackpot)
 par(mfrow=c(2,2))
 knum <-c(100, 500, 1000, 5000)
 for(i in 1:4){
-  tmp <- NumJackpot(k = knum[i], B = 1000)
+#  tmp <- NumJackpot(k = knum[i], B = 1000)
+  tmp <- NumJackpot(k = knum[i], B = 100)
 
   hist(tmp, xlab="sum of dice roll", main=paste("Histogram for k=", knum[i]))
 }
